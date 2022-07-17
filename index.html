@@ -41,7 +41,7 @@
               const { url, ...options } = endpoint("GET /repos/:owner/:repo/issues", {
                 owner: "therevoman",
                 repo: "nate-revo-blog",
-                auth: 'x'
+                auth: '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'
               });
               const res = await fetch(url, options);
               setIssues(await res.json());
