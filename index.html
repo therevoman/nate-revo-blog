@@ -3,64 +3,6 @@
 <html>
   <head>
     <title>Nate Revo</title>
-    <script type="module">
-        import {React, ReactDOM} from 'https://unpkg.com/es-react@16.13.1'
-        ReactDOM.render(React.createElement('h1', {}, 'Hello World'), document.body)
-        import htm from 'https://unpkg.com/htm?module'
-        import marked from 'https://unpkg.com/marked@2.0.0/lib/marked.esm.js'
-        import { endpoint } from 'https://cdn.skypack.dev/@octokit/endpoint'
-        const html = htm.bind(React.createElement)
-        const TOKEN = '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'
-        ReactDOM.render(html` <h1>Hello Worldz</h1> `, document.body)
-        const Posts2 = (props) => {
-            React.useEffect(() => {
-                    async function fetchIssues() {
-                        const {url, ...options} = endpoint('GET /repos/:owner/:repo/issues', {
-                        owner: USERNAME,
-                        repo: REPO_NAME,
-                        auth: TOKEN,
-                        })
-                        const response = await fetch(url, options)
-                        const issues = await response.json()
-                        console.log(issues)
-                    }
-                    fetchIssues()
-                    }, [])
-            return html` <div>These will be our posts</div> `
-        }
-        const Posts = (props) => {
-            const [issues, setIssues] = React.useState([])
-            React.useEffect(() => {
-                async function fetchIssues() {
-                const { url, ...options } = endpoint("GET /repos/:owner/:repo/issues", {
-                    owner: 'joelhooks',
-                    repo: 'react-issues-blog',
-                    auth: TOKEN
-                });
-                const response = await fetch(url, options)
-                const issues = await response.json()
-                setIssues(issues)
-                }
-                fetchIssues()
-            }, [])
-            const {search} = window.location
-            return html`
-            ${issues
-                .filter(({number}) => !search || Number(search.slice(1)) === number)
-                .map(({number, title, body}) => {
-                return html`
-                <div id=${number} key=${number}>
-                    <h1>
-                        <a href="?${number}"> ${title} </a>
-                    </h1>
-                    <div dangerouslySetInnerHTML="${{__html: marked(body)}}" />
-                </div>
-                `
-            })}
-            `
-        }
-        ReactDOM.render(html` <${Posts} /> `, document.body)
-    </script>
   </head>
   <body>
     <script src="https://utteranc.es/client.js"
@@ -74,6 +16,12 @@
         repo="therevoman/nate-revo-blog"
         theme="preferred-color-scheme"
         issue-number="1"
+        crossorigin="anonymous"
+        async>
+    </script>
+    <script src="https://utteranc.es/client.js"
+        repo="therevoman/nate-revo-blog"
+        theme="preferred-color-scheme"
         crossorigin="anonymous"
         async>
     </script>
